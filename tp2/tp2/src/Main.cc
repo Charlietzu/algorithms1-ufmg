@@ -10,7 +10,6 @@ int main(int argc, char *argv[])
 {
     if (argc >= 1)
     {
-       // cin >> noskipws;
         Dados *dados = new Dados();
         vector<Aeroporto *> aeroportos;
         vector<Rota *> rotas;

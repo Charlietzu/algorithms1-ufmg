@@ -5,7 +5,6 @@ Rota::Rota(int id, int origemId, int destinoId)
     this->Id = id;
     this->SetAeroportoOrigemId(origemId);
     this->SetAeroportoDestinoId(destinoId);
-
 }
 
 void Rota::SetAeroportoOrigemId(int id)
@@ -33,4 +32,4 @@ int Rota::GetAeroportoDestinoId()
     return this->AeroportoDestinoId;
 }
 
-Rota::~Rota(){}
+Rota::~Rota() {}

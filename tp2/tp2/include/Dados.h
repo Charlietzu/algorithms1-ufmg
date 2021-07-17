@@ -18,7 +18,8 @@ public:
     ~Dados();
 
     void ProcessaEntrada(vector<Aeroporto *> &aeroportos, vector<Rota *> &rotas);
-
+    void CriarAeroportos(vector<Aeroporto *> &aeroportos, int qtdAeroportos);
+    void AdicionaRotaAeroportos(vector<Aeroporto *> &aeroportos, int rotaId, int origemId, int destinoId);
 };
 
 #endif

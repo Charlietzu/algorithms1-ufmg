@@ -21,6 +21,8 @@ void Dados::ProcessaEntrada(vector<Aeroporto *> &aeroportos, vector<Rota *> &rot
 
         Rota *rota = new Rota(rotaId, origemId, destinoId);
 
+        aeroportos[origemId - 1]->AddAeroportoAdj(aeroportos[destinoId - 1]);
+
         rotas.push_back(rota);
         AdicionaRotaAeroportos(aeroportos, rotaId, origemId, destinoId);
 
@@ -56,46 +58,43 @@ void Dados::AdicionaRotaAeroportos(vector<Aeroporto *> &aeroportos, int rotaId, 
 void Dados::Kosaraju(vector<Aeroporto *> &aeroportos, vector<Rota *> &rotas)
 {
     stack<Aeroporto *> pilha;
-    vector<bool> explorados;
+    vector<bool> IdExplorados;
 
-    for (unsigned int i = 0; i < aeroportos.size(); i++)
+    for (unsigned int i = 1; i <= aeroportos.size(); i++)
     {
-        explorados.push_back(false);
+        IdExplorados.push_back(false);
     }
 
-    for (unsigned int i = 0; i < aeroportos.size(); i++)
+    for (unsigned int i = 1; i <= aeroportos.size(); i++)
     {
-        if (!explorados[i])
+        if (!IdExplorados[i])
         {
-            PreencheOrdem(aeroportos, rotas, pilha, explorados, i);
+            cout << "chamada fora da recursao " << aeroportos[i - 1]->GetId() << endl;
+            PreencheOrdem(aeroportos, rotas, pilha, IdExplorados, i - 1);
         }
     }
 
-    vector<Rota *> rotasT;
-    CriaRotasTranspostas(rotas, rotasT);
+    /*     vector<Rota *> rotasT;
+    CriaRotasTranspostas(rotas, rotasT); */
 
-    for (auto rota = rotasT.begin(), end = rotasT.end(); rota != end; ++rota)
+    /*     for (auto rota = rotasT.begin(), end = rotasT.end(); rota != end; ++rota)
     {
         cout << (*rota)->GetAeroportoOrigemId() << " -> " << (*rota)->GetAeroportoDestinoId() << endl;
-    }
+    } */
 }
 
-void Dados::PreencheOrdem(vector<Aeroporto *> &aeroportos, vector<Rota *> &rotas, stack<Aeroporto *> pilha, vector<bool> explorados, int i)
+void Dados::PreencheOrdem(vector<Aeroporto *> &aeroportos, vector<Rota *> &rotas, stack<Aeroporto *> pilha, vector<bool> IdExplorados, int i)
 {
-    if (aeroportos[i]->GetId() - 1 == i)
+    IdExplorados[aeroportos[i]->GetId()] = true;
+    cout << "AEROPORTO ID - " << aeroportos[i]->GetId() << endl;
+    for (unsigned int j = 0; j < aeroportos[i]->GetAeroportosAdj().size(); j++)
     {
-        /*         cout << "AEROPORTO ID "<< aeroportos[i]->GetId() << endl;
-        cout << "aeroportos adjacentes" << endl; */
-        for (unsigned int j = 0; j < aeroportos[i]->GetRotasDestino().size(); j++)
+        if (!IdExplorados[aeroportos[i]->GetAeroportosAdj()[j]->GetId()])
         {
-            int indAeroportoAdj = rotas[aeroportos[i]->GetRotasDestino()[j] - 1]->GetAeroportoDestinoId() - 1;
-            // cout << aeroportos[indAeroportoAdj]->GetId() << endl;
+            PreencheOrdem(aeroportos, rotas, pilha, IdExplorados, aeroportos[i]->GetAeroportosAdj()[j]->GetId() - 1);
         }
-        /*         cout << "PUSH NA PILHA" << endl;
-        cout << aeroportos[i]->GetId() << endl;
-        cout << "-----------------------------" << endl; */
-        pilha.push(aeroportos[i]);
-        explorados[i] = true;
+
+        cout << "ID - " << aeroportos[i]->GetId() << endl;
     }
 }
 

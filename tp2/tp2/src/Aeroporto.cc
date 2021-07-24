@@ -73,4 +73,14 @@ vector<int> Aeroporto::GetRotasOrigem()
     return this->RotasOrigemId;
 }
 
+void Aeroporto::AddAeroportoAdj(Aeroporto* aeroportoAdj)
+{
+    this->AeroportosAdj.push_back(aeroportoAdj);
+}
+
+vector<Aeroporto *> Aeroporto::GetAeroportosAdj()
+{
+    return this->AeroportosAdj;
+}
+
 Aeroporto::~Aeroporto() {}

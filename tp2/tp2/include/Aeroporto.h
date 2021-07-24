@@ -15,12 +15,15 @@ public:
     void AddRotaOrigemId(int id);
     void AddRotaDestinoId(int id);
 
+    void AddAeroportoAdj(Aeroporto *aeroporto);
+
     int GetRotaOrigemId(int id);
     int GetRotaDestinoId(int id);
     int GetId();
 
     vector<int> GetRotasOrigem();
     vector<int> GetRotasDestino();
+    vector<Aeroporto *> GetAeroportosAdj();
 
     //Auxiliares
     void ImprimeRotasAeroporto();
@@ -28,6 +31,7 @@ public:
 private:
     int Id;
     vector<int> RotasOrigemId, RotasDestinoId;
+    vector<Aeroporto *> AeroportosAdj;
 };
 
 #endif

@@ -8,6 +8,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <stack>
 
 using namespace std;
 
@@ -18,8 +19,13 @@ public:
     ~Dados();
 
     void ProcessaEntrada(vector<Aeroporto *> &aeroportos, vector<Rota *> &rotas);
-    void CriarAeroportos(vector<Aeroporto *> &aeroportos, int qtdAeroportos);
+    void CriaAeroportos(vector<Aeroporto *> &aeroportos, int qtdAeroportos);
     void AdicionaRotaAeroportos(vector<Aeroporto *> &aeroportos, int rotaId, int origemId, int destinoId);
+    void Kosaraju(vector<Aeroporto *> &aeroportos, vector<Rota *> &rotas);
+    void PreencheOrdem(vector<Aeroporto *> &aeroportos, vector<Rota *> &rotas, stack<Aeroporto *> pilha, vector<bool> explorados, int i);
+
+    //Aux
+    void ImprimirInfoAeroportos(vector<Aeroporto *> &aeroportos);
 };
 
 #endif

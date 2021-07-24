@@ -19,6 +19,9 @@ public:
     int GetRotaDestinoId(int id);
     int GetId();
 
+    vector<int> GetRotasOrigem();
+    vector<int> GetRotasDestino();
+
     //Auxiliares
     void ImprimeRotasAeroporto();
 

@@ -15,6 +15,8 @@ int main(int argc, char *argv[])
         vector<Rota *> rotas;
 
         dados->ProcessaEntrada(aeroportos, rotas);
+       // dados->ImprimirInfoAeroportos(aeroportos);
+        dados->Kosaraju(aeroportos, rotas);
 
         for (auto aeroporto = aeroportos.begin(), end = aeroportos.end(); aeroporto != end; ++aeroporto)
         {

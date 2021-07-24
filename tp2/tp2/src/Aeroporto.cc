@@ -63,4 +63,14 @@ void Aeroporto::ImprimeRotasAeroporto()
     }
 }
 
+vector<int> Aeroporto::GetRotasDestino()
+{
+    return this->RotasDestinoId;
+}
+
+vector<int> Aeroporto::GetRotasOrigem()
+{
+    return this->RotasOrigemId;
+}
+
 Aeroporto::~Aeroporto() {}

@@ -70,32 +70,41 @@ void Dados::Kosaraju(vector<Aeroporto *> &aeroportos, vector<Rota *> &rotas)
             PreencheOrdem(aeroportos, rotas, pilha, explorados, i);
         }
     }
+
+    vector<Rota *> rotasT;
+    CriaRotasTranspostas(rotas, rotasT);
+
+    for (auto rota = rotasT.begin(), end = rotasT.end(); rota != end; ++rota)
+    {
+        cout << (*rota)->GetAeroportoOrigemId() << " -> " << (*rota)->GetAeroportoDestinoId() << endl;
+    }
 }
 
 void Dados::PreencheOrdem(vector<Aeroporto *> &aeroportos, vector<Rota *> &rotas, stack<Aeroporto *> pilha, vector<bool> explorados, int i)
 {
-    explorados[i] = true;
-
     if (aeroportos[i]->GetId() - 1 == i)
     {
-        //Pra cada rota de destino
-        //Recuperar esta rota no vetor de rotas
-        //Verificar pra qual aeroporto ela vai
-        //Recuperar este aeroporto e repetir o processo
-        
-        //cout << "AEROPORTO ID " << aeroportos[i]->GetId() << endl;
-
+        /*         cout << "AEROPORTO ID "<< aeroportos[i]->GetId() << endl;
+        cout << "aeroportos adjacentes" << endl; */
         for (unsigned int j = 0; j < aeroportos[i]->GetRotasDestino().size(); j++)
         {
-            for (auto rota = rotas.begin(), end = rotas.end(); rota != end; ++rota)
-            {
-                if ((*rota)->GetId() == aeroportos[i]->GetRotasDestino()[j])
-                {
-                    //cout << (*rota)->GetAeroportoDestinoId() << endl;
-                    cout << aeroportos[(*rota)->GetAeroportoDestinoId() - 1]->GetId() << endl;
-                }
-            }
+            int indAeroportoAdj = rotas[aeroportos[i]->GetRotasDestino()[j] - 1]->GetAeroportoDestinoId() - 1;
+            // cout << aeroportos[indAeroportoAdj]->GetId() << endl;
         }
+        /*         cout << "PUSH NA PILHA" << endl;
+        cout << aeroportos[i]->GetId() << endl;
+        cout << "-----------------------------" << endl; */
+        pilha.push(aeroportos[i]);
+        explorados[i] = true;
+    }
+}
+
+void Dados::CriaRotasTranspostas(vector<Rota *> &rotas, vector<Rota *> &rotasT)
+{
+    for (auto rota = rotas.begin(), end = rotas.end(); rota != end; ++rota)
+    {
+        Rota *rotaT = new Rota((*rota)->GetId(), (*rota)->GetAeroportoDestinoId(), (*rota)->GetAeroportoOrigemId());
+        rotasT.push_back(rotaT);
     }
 }
 

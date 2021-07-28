@@ -12,13 +12,13 @@ int main(int argc, char *argv[])
         vector<int> aeroportosId;
         grafo->ProcessaEntrada(aeroportosId);
         grafo->Kosaraju(aeroportosId);
-/* 
-        grafo->ImprimirInfoAeroportos();
         cout << "-------------------------------------" << endl;
+
+        grafo->ImprimirComponentes();
+        /* 
+        grafo->ImprimirInfoAeroportos();
         grafo->ImprimirRotasTranspostas(); */
 
-        aeroportosId.clear();
-        aeroportosId.shrink_to_fit();
         delete grafo;
     }
     return 0;

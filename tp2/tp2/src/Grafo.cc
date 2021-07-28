@@ -79,20 +79,46 @@ void Grafo::Kosaraju(vector<int> &aeroportosId)
         if (!explorados[aeroportoId])
         {
             this->ComponentesConectados.push_back({});
+            this->GrauEntradaComponentes.push_back(0);
+            this->GrauSaidaComponentes.push_back(0);
             DFSComponentesConectados(explorados, aeroportoId, count);
             count++;
         }
     }
 
+    //Para cada componente
+    //Verificar se há algum dos nós deste componente com um adjacente que não seja deste componente
+    //Ou
+    //se há algum dos nós que não estejam neste componente com adjacencia em algum nó deste componente
     for (unsigned int i = 0; i < this->ComponentesConectados.size(); i++)
     {
-        cout << "COMPONENTE" << endl;
         for (unsigned int j = 0; j < this->ComponentesConectados[i].size(); j++)
         {
-            cout << this->ComponentesConectados[i][j] << " ";
+            cout << this->ComponentesConectados[i][j] << endl;
+
+            for (unsigned int k = 0; k < this->ListaRotasAeroportosId[this->ComponentesConectados[i][j]].size(); k++)
+            {
+                if (!EncontraItem(this->ComponentesConectados[i], this->ListaRotasAeroportosId[this->ComponentesConectados[i][j]][k]))
+                {
+                    cout << this->ComponentesConectados[i][j] << " -> " << this->ListaRotasAeroportosId[this->ComponentesConectados[i][j]][k];
+                    this->GrauSaidaComponentes[i] = this->GrauSaidaComponentes[i] + 1;
+                }
+            }
+            cout << endl;
         }
-        cout << endl;
     }
+}
+
+bool Grafo::EncontraItem(vector<int> componente, int aeroportoId)
+{
+    for (unsigned int i = 0; i < componente.size(); i++)
+    {
+        if (componente[i] == aeroportoId)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 void Grafo::DFSTempo(vector<bool> &explorados, stack<int> &pilha, int aeroportoId)
@@ -154,6 +180,20 @@ void Grafo::ImprimirRotasTranspostas()
         {
             cout << i << " -> " << this->ListaRotasAeroportosIdTransposta[i][j] << endl;
         }
+    }
+}
+
+void Grafo::ImprimirComponentes()
+{
+    for (unsigned int i = 0; i < this->ComponentesConectados.size(); i++)
+    {
+        cout << "COMPONENTE ID" << i << endl;
+        for (unsigned int j = 0; j < this->ComponentesConectados[i].size(); j++)
+        {
+            cout << this->ComponentesConectados[i][j] << "  ";
+        }
+        cout << endl;
+        cout << "GRAU DE SAIDA " << this->GrauSaidaComponentes[i] << endl;
     }
 }
 

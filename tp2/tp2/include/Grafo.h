@@ -23,13 +23,17 @@ public:
     void DFSTempo(vector<bool> &explorados, stack<int> &pilha, int aeroportoId);
     void TransporRotas();
     void DFSComponentesConectados(vector<bool> &explorados, int aeroportoId, int count);
+    bool EncontraItem(vector<int> componente, int aeroportoId);
 
     //Aux
     void ImprimirInfoAeroportos();
     void ImprimirRotasTranspostas();
+    void ImprimirComponentes();
 
 private:
     vector<vector<int>> ListaRotasAeroportosId, ListaRotasAeroportosIdTransposta, ComponentesConectados;
+
+    vector<int> GrauEntradaComponentes, GrauSaidaComponentes;
     int QtdAeroportos;
 };
 

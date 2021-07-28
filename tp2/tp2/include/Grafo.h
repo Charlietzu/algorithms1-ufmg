@@ -1,9 +1,6 @@
 #ifndef GRAFO_H
 #define GRAFO_H
 
-#include "Aeroporto.h"
-#include "Rota.h"
-
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -21,16 +18,18 @@ public:
     void ProcessaEntrada(vector<int> &aeroportosId);
     void CriaAeroportos(vector<int> &aeroportosId, int qtdAeroportos);
     void AdicionaRota(int origemId, int destinoId);
+    void AdicionaRotaTransposta(int origemId, int destinoId);
     void Kosaraju(vector<int> &aeroportosId);
-    void DFSNormal(vector<bool> &explorados, stack<int> &pilha, int aeroportoId);
-
-    void CriaRotasTranspostas(vector<Rota *> &rotas, vector<Rota *> &rotasT);
+    void DFSTempo(vector<bool> &explorados, stack<int> &pilha, int aeroportoId);
+    void TransporRotas();
+    void DFSComponentes(vector<bool> &explorados, int aeroportoId);
 
     //Aux
     void ImprimirInfoAeroportos();
+    void ImprimirRotasTranspostas();
 
 private:
-    vector<vector<int>> ListaRotasAeroportosId;
+    vector<vector<int>> ListaRotasAeroportosId, ListaRotasAeroportosIdTransposta;
     int QtdAeroportos;
 };
 

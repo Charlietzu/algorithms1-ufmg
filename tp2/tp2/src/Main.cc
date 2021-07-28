@@ -1,7 +1,3 @@
-#include "Dados.h"
-#include "Aeroporto.h"
-#include "Rota.h"
-
 #include "Grafo.h"
 
 #include <vector>
@@ -15,9 +11,14 @@ int main(int argc, char *argv[])
         Grafo *grafo = new Grafo();
         vector<int> aeroportosId;
         grafo->ProcessaEntrada(aeroportosId);
-        //grafo->ImprimirInfoAeroportos();
         grafo->Kosaraju(aeroportosId);
+/* 
+        grafo->ImprimirInfoAeroportos();
+        cout << "-------------------------------------" << endl;
+        grafo->ImprimirRotasTranspostas(); */
 
+        aeroportosId.clear();
+        aeroportosId.shrink_to_fit();
         delete grafo;
     }
     return 0;

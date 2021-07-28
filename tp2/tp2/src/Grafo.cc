@@ -30,12 +30,18 @@ void Grafo::CriaAeroportos(vector<int> &aeroportosId, int qtdAeroportos)
     {
         aeroportosId.push_back(i);
         this->ListaRotasAeroportosId.push_back({});
+        this->ListaRotasAeroportosIdTransposta.push_back({});
     }
 }
 
 void Grafo::AdicionaRota(int origemId, int destinoId)
 {
     this->ListaRotasAeroportosId[origemId].push_back(destinoId);
+}
+
+void Grafo::AdicionaRotaTransposta(int origemId, int destinoId)
+{
+    this->ListaRotasAeroportosIdTransposta[origemId].push_back(destinoId);
 }
 
 void Grafo::Kosaraju(vector<int> &aeroportosId)
@@ -51,27 +57,68 @@ void Grafo::Kosaraju(vector<int> &aeroportosId)
 
     for (int aeroportoId = 1; aeroportoId <= this->QtdAeroportos; aeroportoId++)
     {
-        if (explorados[aeroportoId] == false)
+        if (!explorados[aeroportoId])
         {
-            this->DFSNormal(explorados, pilha, aeroportoId);
+            this->DFSTempo(explorados, pilha, aeroportoId);
+        }
+    }
+
+    TransporRotas();
+
+    for (int aeroportoId = 1; aeroportoId <= this->QtdAeroportos; aeroportoId++)
+    {
+        explorados[aeroportoId] = false;
+    }
+
+    while (!pilha.empty())
+    {
+        int aeroportoId = pilha.top();
+        pilha.pop();
+
+        if (!explorados[aeroportoId])
+        {
+            DFSComponentes(explorados, aeroportoId);
+            cout << endl;
         }
     }
 }
 
-void Grafo::DFSNormal(vector<bool> &explorados, stack<int> &pilha, int aeroportoId)
+void Grafo::DFSTempo(vector<bool> &explorados, stack<int> &pilha, int aeroportoId)
 {
     explorados[aeroportoId] = true;
-    cout << "aeroporto id " << aeroportoId << endl;
     for (unsigned int j = 0; j < this->ListaRotasAeroportosId[aeroportoId].size(); j++)
     {
-        cout << this->ListaRotasAeroportosId[aeroportoId][j] << endl;
-        if (explorados[this->ListaRotasAeroportosId[aeroportoId][j]] == false)
+        if (!explorados[this->ListaRotasAeroportosId[aeroportoId][j]])
         {
-            this->DFSNormal(explorados, pilha, this->ListaRotasAeroportosId[aeroportoId][j]);
+            this->DFSTempo(explorados, pilha, this->ListaRotasAeroportosId[aeroportoId][j]);
         }
     }
-    cout << "push na pilha " << aeroportoId << endl;
     pilha.push(aeroportoId);
+}
+
+void Grafo::TransporRotas()
+{
+    for (unsigned int i = 1; i <= this->ListaRotasAeroportosId.size(); i++)
+    {
+        for (unsigned int j = 0; j < this->ListaRotasAeroportosId[i].size(); j++)
+        {
+            AdicionaRotaTransposta(this->ListaRotasAeroportosId[i][j], i);
+        }
+    }
+}
+
+void Grafo::DFSComponentes(vector<bool> &explorados, int aeroportoId)
+{
+    explorados[aeroportoId] = true;
+    cout << aeroportoId << " ";
+
+    for (unsigned int j = 0; j < this->ListaRotasAeroportosIdTransposta[aeroportoId].size(); j++)
+    {
+        if (!explorados[this->ListaRotasAeroportosIdTransposta[aeroportoId][j]])
+        {
+            this->DFSComponentes(explorados, this->ListaRotasAeroportosIdTransposta[aeroportoId][j]);
+        }
+    }
 }
 
 void Grafo::ImprimirInfoAeroportos()
@@ -82,6 +129,18 @@ void Grafo::ImprimirInfoAeroportos()
         for (unsigned int j = 0; j < this->ListaRotasAeroportosId[i].size(); j++)
         {
             cout << i << " -> " << this->ListaRotasAeroportosId[i][j] << endl;
+        }
+    }
+}
+
+void Grafo::ImprimirRotasTranspostas()
+{
+    for (unsigned int i = 1; i <= this->ListaRotasAeroportosIdTransposta.size(); i++)
+    {
+        cout << "AEROPORTO ID" << i << endl;
+        for (unsigned int j = 0; j < this->ListaRotasAeroportosIdTransposta[i].size(); j++)
+        {
+            cout << i << " -> " << this->ListaRotasAeroportosIdTransposta[i][j] << endl;
         }
     }
 }

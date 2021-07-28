@@ -88,8 +88,13 @@ void Grafo::Kosaraju(vector<int> &aeroportosId)
 
     //Para cada componente
     //Verificar se há algum dos nós deste componente com um adjacente que não seja deste componente
-    //Ou
+    VerificaGrauSaidaComponentes();
+    //E
     //se há algum dos nós que não estejam neste componente com adjacencia em algum nó deste componente
+}
+
+void Grafo::VerificaGrauSaidaComponentes()
+{
     for (unsigned int i = 0; i < this->ComponentesConectados.size(); i++)
     {
         for (unsigned int j = 0; j < this->ComponentesConectados[i].size(); j++)
@@ -102,9 +107,28 @@ void Grafo::Kosaraju(vector<int> &aeroportosId)
                 {
                     cout << this->ComponentesConectados[i][j] << " -> " << this->ListaRotasAeroportosId[this->ComponentesConectados[i][j]][k];
                     this->GrauSaidaComponentes[i] = this->GrauSaidaComponentes[i] + 1;
+
+                    VerificaGrauEntradaComponentes(this->ListaRotasAeroportosId[this->ComponentesConectados[i][j]][k]);
                 }
             }
             cout << endl;
+        }
+    }
+}
+
+void Grafo::VerificaGrauEntradaComponentes(int destinoId)
+{
+    //Encontrar componente do nó de destino e adicionar um grau de entrada
+    for (unsigned int i = 0; i < this->ComponentesConectados.size(); i++)
+    {
+        for (unsigned int j = 0; j < this->ComponentesConectados[i].size(); j++)
+        {
+            cout << this->ComponentesConectados[i][j] << endl;
+
+            if (this->ComponentesConectados[i][j] == destinoId)
+            {
+                this->GrauEntradaComponentes[i] = this->GrauEntradaComponentes[i] + 1;
+            }
         }
     }
 }
@@ -187,13 +211,15 @@ void Grafo::ImprimirComponentes()
 {
     for (unsigned int i = 0; i < this->ComponentesConectados.size(); i++)
     {
-        cout << "COMPONENTE ID" << i << endl;
+        cout << "COMPONENTE ID " << i << endl;
         for (unsigned int j = 0; j < this->ComponentesConectados[i].size(); j++)
         {
             cout << this->ComponentesConectados[i][j] << "  ";
         }
         cout << endl;
         cout << "GRAU DE SAIDA " << this->GrauSaidaComponentes[i] << endl;
+        cout << "GRAU DE ENTRADA " << this->GrauEntradaComponentes[i] << endl;
+        cout << "---------------" << endl;
     }
 }
 

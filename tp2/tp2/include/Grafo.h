@@ -26,6 +26,7 @@ public:
     bool EncontraItem(vector<int> componente, int aeroportoId);
     void VerificaGrauSaidaComponentes();
     void VerificaGrauEntradaComponentes(int destinoId);
+    void VerificaAdicaoMinima();
 
     //Aux
     void ImprimirInfoAeroportos();

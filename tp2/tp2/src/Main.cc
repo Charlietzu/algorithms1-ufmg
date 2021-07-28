@@ -12,12 +12,6 @@ int main(int argc, char *argv[])
         vector<int> aeroportosId;
         grafo->ProcessaEntrada(aeroportosId);
         grafo->Kosaraju(aeroportosId);
-        cout << "-------------------------------------" << endl;
-
-        grafo->ImprimirComponentes();
-        /* 
-        grafo->ImprimirInfoAeroportos();
-        grafo->ImprimirRotasTranspostas(); */
 
         delete grafo;
     }

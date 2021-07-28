@@ -86,11 +86,8 @@ void Grafo::Kosaraju(vector<int> &aeroportosId)
         }
     }
 
-    //Para cada componente
-    //Verificar se há algum dos nós deste componente com um adjacente que não seja deste componente
     VerificaGrauSaidaComponentes();
-    //E
-    //se há algum dos nós que não estejam neste componente com adjacencia em algum nó deste componente
+    VerificaAdicaoMinima();
 }
 
 void Grafo::VerificaGrauSaidaComponentes()
@@ -99,32 +96,24 @@ void Grafo::VerificaGrauSaidaComponentes()
     {
         for (unsigned int j = 0; j < this->ComponentesConectados[i].size(); j++)
         {
-            cout << this->ComponentesConectados[i][j] << endl;
-
             for (unsigned int k = 0; k < this->ListaRotasAeroportosId[this->ComponentesConectados[i][j]].size(); k++)
             {
                 if (!EncontraItem(this->ComponentesConectados[i], this->ListaRotasAeroportosId[this->ComponentesConectados[i][j]][k]))
                 {
-                    cout << this->ComponentesConectados[i][j] << " -> " << this->ListaRotasAeroportosId[this->ComponentesConectados[i][j]][k];
                     this->GrauSaidaComponentes[i] = this->GrauSaidaComponentes[i] + 1;
-
                     VerificaGrauEntradaComponentes(this->ListaRotasAeroportosId[this->ComponentesConectados[i][j]][k]);
                 }
             }
-            cout << endl;
         }
     }
 }
 
 void Grafo::VerificaGrauEntradaComponentes(int destinoId)
 {
-    //Encontrar componente do nó de destino e adicionar um grau de entrada
     for (unsigned int i = 0; i < this->ComponentesConectados.size(); i++)
     {
         for (unsigned int j = 0; j < this->ComponentesConectados[i].size(); j++)
         {
-            cout << this->ComponentesConectados[i][j] << endl;
-
             if (this->ComponentesConectados[i][j] == destinoId)
             {
                 this->GrauEntradaComponentes[i] = this->GrauEntradaComponentes[i] + 1;
@@ -180,6 +169,34 @@ void Grafo::DFSComponentesConectados(vector<bool> &explorados, int aeroportoId, 
         {
             this->DFSComponentesConectados(explorados, this->ListaRotasAeroportosIdTransposta[aeroportoId][j], count);
         }
+    }
+}
+
+void Grafo::VerificaAdicaoMinima()
+{
+    int totalGrauEntradaZero = 0, totalGrauSaidaZero = 0;
+    for (unsigned int i = 0; i < this->GrauEntradaComponentes.size(); i++)
+    {
+        if (this->GrauEntradaComponentes[i] == 0)
+        {
+            totalGrauEntradaZero++;
+        }
+
+        if (this->GrauSaidaComponentes[i] == 0)
+        {
+            totalGrauSaidaZero++;
+        }
+    }
+
+    if (totalGrauEntradaZero > totalGrauSaidaZero)
+    {
+        cout << totalGrauEntradaZero;
+        cout << "\n";
+    }
+    else
+    {
+        cout << totalGrauSaidaZero;
+        cout << "\n";
     }
 }
 

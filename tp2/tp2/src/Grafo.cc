@@ -70,6 +70,7 @@ void Grafo::Kosaraju(vector<int> &aeroportosId)
         explorados[aeroportoId] = false;
     }
 
+    int count = 0;
     while (!pilha.empty())
     {
         int aeroportoId = pilha.top();
@@ -77,9 +78,20 @@ void Grafo::Kosaraju(vector<int> &aeroportosId)
 
         if (!explorados[aeroportoId])
         {
-            DFSComponentes(explorados, aeroportoId);
-            cout << endl;
+            this->ComponentesConectados.push_back({});
+            DFSComponentesConectados(explorados, aeroportoId, count);
+            count++;
         }
+    }
+
+    for (unsigned int i = 0; i < this->ComponentesConectados.size(); i++)
+    {
+        cout << "COMPONENTE" << endl;
+        for (unsigned int j = 0; j < this->ComponentesConectados[i].size(); j++)
+        {
+            cout << this->ComponentesConectados[i][j] << " ";
+        }
+        cout << endl;
     }
 }
 
@@ -107,16 +119,16 @@ void Grafo::TransporRotas()
     }
 }
 
-void Grafo::DFSComponentes(vector<bool> &explorados, int aeroportoId)
+void Grafo::DFSComponentesConectados(vector<bool> &explorados, int aeroportoId, int count)
 {
     explorados[aeroportoId] = true;
-    cout << aeroportoId << " ";
+    this->ComponentesConectados[count].push_back(aeroportoId);
 
     for (unsigned int j = 0; j < this->ListaRotasAeroportosIdTransposta[aeroportoId].size(); j++)
     {
         if (!explorados[this->ListaRotasAeroportosIdTransposta[aeroportoId][j]])
         {
-            this->DFSComponentes(explorados, this->ListaRotasAeroportosIdTransposta[aeroportoId][j]);
+            this->DFSComponentesConectados(explorados, this->ListaRotasAeroportosIdTransposta[aeroportoId][j], count);
         }
     }
 }

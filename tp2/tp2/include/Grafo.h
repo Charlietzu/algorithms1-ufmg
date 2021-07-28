@@ -22,14 +22,14 @@ public:
     void Kosaraju(vector<int> &aeroportosId);
     void DFSTempo(vector<bool> &explorados, stack<int> &pilha, int aeroportoId);
     void TransporRotas();
-    void DFSComponentes(vector<bool> &explorados, int aeroportoId);
+    void DFSComponentesConectados(vector<bool> &explorados, int aeroportoId, int count);
 
     //Aux
     void ImprimirInfoAeroportos();
     void ImprimirRotasTranspostas();
 
 private:
-    vector<vector<int>> ListaRotasAeroportosId, ListaRotasAeroportosIdTransposta;
+    vector<vector<int>> ListaRotasAeroportosId, ListaRotasAeroportosIdTransposta, ComponentesConectados;
     int QtdAeroportos;
 };
 

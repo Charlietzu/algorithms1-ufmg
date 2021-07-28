@@ -85,9 +85,6 @@ void Grafo::Kosaraju(vector<int> &aeroportosId)
             count++;
         }
     }
-
-    VerificaGrauSaidaComponentes();
-    VerificaAdicaoMinima();
 }
 
 void Grafo::VerificaGrauSaidaComponentes()
@@ -197,46 +194,6 @@ void Grafo::VerificaAdicaoMinima()
     {
         cout << totalGrauSaidaZero;
         cout << "\n";
-    }
-}
-
-void Grafo::ImprimirInfoAeroportos()
-{
-    for (unsigned int i = 1; i <= this->ListaRotasAeroportosId.size(); i++)
-    {
-        cout << "AEROPORTO ID" << i << endl;
-        for (unsigned int j = 0; j < this->ListaRotasAeroportosId[i].size(); j++)
-        {
-            cout << i << " -> " << this->ListaRotasAeroportosId[i][j] << endl;
-        }
-    }
-}
-
-void Grafo::ImprimirRotasTranspostas()
-{
-    for (unsigned int i = 1; i <= this->ListaRotasAeroportosIdTransposta.size(); i++)
-    {
-        cout << "AEROPORTO ID" << i << endl;
-        for (unsigned int j = 0; j < this->ListaRotasAeroportosIdTransposta[i].size(); j++)
-        {
-            cout << i << " -> " << this->ListaRotasAeroportosIdTransposta[i][j] << endl;
-        }
-    }
-}
-
-void Grafo::ImprimirComponentes()
-{
-    for (unsigned int i = 0; i < this->ComponentesConectados.size(); i++)
-    {
-        cout << "COMPONENTE ID " << i << endl;
-        for (unsigned int j = 0; j < this->ComponentesConectados[i].size(); j++)
-        {
-            cout << this->ComponentesConectados[i][j] << "  ";
-        }
-        cout << endl;
-        cout << "GRAU DE SAIDA " << this->GrauSaidaComponentes[i] << endl;
-        cout << "GRAU DE ENTRADA " << this->GrauEntradaComponentes[i] << endl;
-        cout << "---------------" << endl;
     }
 }
 

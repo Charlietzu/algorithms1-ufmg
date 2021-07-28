@@ -28,14 +28,8 @@ public:
     void VerificaGrauEntradaComponentes(int destinoId);
     void VerificaAdicaoMinima();
 
-    //Aux
-    void ImprimirInfoAeroportos();
-    void ImprimirRotasTranspostas();
-    void ImprimirComponentes();
-
 private:
     vector<vector<int>> ListaRotasAeroportosId, ListaRotasAeroportosIdTransposta, ComponentesConectados;
-
     vector<int> GrauEntradaComponentes, GrauSaidaComponentes;
     int QtdAeroportos;
 };

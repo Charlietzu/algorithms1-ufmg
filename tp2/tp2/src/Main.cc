@@ -12,6 +12,8 @@ int main(int argc, char *argv[])
         vector<int> aeroportosId;
         grafo->ProcessaEntrada(aeroportosId);
         grafo->Kosaraju(aeroportosId);
+        grafo->VerificaGrauSaidaComponentes();
+        grafo->VerificaAdicaoMinima();
 
         delete grafo;
     }

@@ -87,7 +87,7 @@ void Grafo::Kosaraju(vector<int> &aeroportosId)
     }
 }
 
-void Grafo::VerificaGrauSaidaComponentes()
+void Grafo::VerificaGrauSaidaEntradaComponentes()
 {
     for (unsigned int i = 0; i < this->ComponentesConectados.size(); i++)
     {

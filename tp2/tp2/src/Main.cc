@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
         vector<int> aeroportosId;
         grafo->ProcessaEntrada(aeroportosId);
         grafo->Kosaraju(aeroportosId);
-        grafo->VerificaGrauSaidaComponentes();
+        grafo->VerificaGrauSaidaEntradaComponentes();
         grafo->VerificaAdicaoMinima();
 
         delete grafo;

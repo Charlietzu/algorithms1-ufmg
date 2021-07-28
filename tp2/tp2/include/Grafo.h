@@ -24,7 +24,7 @@ public:
     void TransporRotas();
     void DFSComponentesConectados(vector<bool> &explorados, int aeroportoId, int count);
     bool EncontraItem(vector<int> componente, int aeroportoId);
-    void VerificaGrauSaidaComponentes();
+    void VerificaGrauSaidaEntradaComponentes();
     void VerificaGrauEntradaComponentes(int destinoId);
     void VerificaAdicaoMinima();
 

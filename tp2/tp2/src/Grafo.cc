@@ -10,6 +10,8 @@ void Grafo::ProcessaEntrada(vector<int> &aeroportosId)
     cin >> qtdAeroportos >> qtdRotas;
 
     this->QtdAeroportos = qtdAeroportos;
+
+    //Ignorar posição 0 para o indice do array representar o ID do array
     aeroportosId.push_back(0);
 
     CriaAeroportos(aeroportosId, qtdAeroportos);
@@ -48,6 +50,7 @@ void Grafo::Kosaraju(vector<int> &aeroportosId)
 {
     stack<int> pilha;
     vector<bool> explorados;
+    //Ignorar posição 0 para o indice do array representar o ID do array
     explorados.push_back(true);
 
     for (int aeroportoId = 1; aeroportoId <= this->QtdAeroportos; aeroportoId++)
@@ -187,13 +190,11 @@ void Grafo::VerificaAdicaoMinima()
 
     if (totalGrauEntradaZero > totalGrauSaidaZero)
     {
-        cout << totalGrauEntradaZero;
-        cout << "\n";
+        cout << totalGrauEntradaZero << endl;
     }
     else
     {
-        cout << totalGrauSaidaZero;
-        cout << "\n";
+        cout << totalGrauSaidaZero << endl;
     }
 }
 

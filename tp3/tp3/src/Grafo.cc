@@ -18,7 +18,7 @@ void Grafo::ProcessaEntrada(string tipoTarefa, string nomeEntrada)
             arquivo >> primeiroValor >> segundoValor;
             if (count == 0)
             {
-                CriaVilas(segundoValor);
+                CriaVilas(primeiroValor);
             }
             else
             {
@@ -29,7 +29,14 @@ void Grafo::ProcessaEntrada(string tipoTarefa, string nomeEntrada)
         arquivo.close();
     }
 
-    ImprimeVila();
+    if (tipoTarefa == "tarefa1")
+    {
+        VerificaNumeroDepositos1();
+    }
+    else if (tipoTarefa == "tarefa2")
+    {
+        VerificaNumeroDepositos2();
+    }
 }
 
 void Grafo::AdicionaCaminho(int origemId, int destinoId)
@@ -45,9 +52,14 @@ void Grafo::CriaVilas(int qtdVilas)
     }
 }
 
+void Grafo::VerificaNumeroDepositos1() {}
+
+void Grafo::VerificaNumeroDepositos2() {}
+
 //AUX
 void Grafo::ImprimeVila()
 {
+    cout << "Número de vilas: " << this->ListaCaminhosVilas.size() << endl;
     for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
     {
         for (unsigned int j = 0; j < this->ListaCaminhosVilas[i].size(); j++)

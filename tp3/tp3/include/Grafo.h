@@ -17,6 +17,8 @@ public:
     void ProcessaEntrada(string tipoTarefa, string nomeEntrada);
     void AdicionaCaminho(int origemId, int destinoId);
     void CriaVilas(int qtdVilas);
+    void VerificaNumeroDepositos1();
+    void VerificaNumeroDepositos2();
 
     //AUX
     void ImprimeVila();

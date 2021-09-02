@@ -31,11 +31,11 @@ void Grafo::ProcessaEntrada(string tipoTarefa, string nomeEntrada)
 
     if (tipoTarefa == "tarefa1")
     {
-        VerificaNumeroDepositos1();
+        VerificaNumeroDepositosTarefa1();
     }
     else if (tipoTarefa == "tarefa2")
     {
-        VerificaNumeroDepositos2();
+       /*  VerificaNumeroDepositos("tarefa2"); */
     }
 }
 
@@ -52,7 +52,7 @@ void Grafo::CriaVilas(int qtdVilas)
     }
 }
 
-void Grafo::VerificaNumeroDepositos1()
+void Grafo::VerificaNumeroDepositosTarefa1()
 {
     vector<bool> explorados;
     int numeroDepositos = 0;
@@ -66,13 +66,13 @@ void Grafo::VerificaNumeroDepositos1()
     {
         if (!explorados[i] && this->ListaCaminhosVilas[i].size() > 0)
         {
-            numeroDepositos++;
             explorados[i] = true;
             for (unsigned int j = 0; j < this->ListaCaminhosVilas[i].size(); j++)
             {
                 if (!explorados[this->ListaCaminhosVilas[i][j]])
                 {
                     explorados[this->ListaCaminhosVilas[i][j]] = true;
+                    numeroDepositos++;
                     break;
                 }
             }
@@ -80,42 +80,6 @@ void Grafo::VerificaNumeroDepositos1()
     }
 
     cout << numeroDepositos << endl;
-}
-
-void Grafo::VerificaNumeroDepositos2()
-{
-    vector<bool> explorados;
-    int numeroDepositos = 0;
-    vector<int> depositos;
-
-    for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
-    {
-        explorados.push_back(false);
-    }
-
-    for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
-    {
-        if (!explorados[i] && this->ListaCaminhosVilas[i].size() > 0)
-        {
-            numeroDepositos++;
-            explorados[i] = true;
-            for (unsigned int j = 0; j < this->ListaCaminhosVilas[i].size(); j++)
-            {
-                if (!explorados[this->ListaCaminhosVilas[i][j]])
-                {
-                    explorados[this->ListaCaminhosVilas[i][j]] = true;
-                    depositos.push_back(this->ListaCaminhosVilas[i][j]);
-                    break;
-                }
-            }
-        }
-    }
-
-    cout << depositos.size() << endl;
-    for (unsigned int i = 0; i < depositos.size(); i++)
-    {
-        cout << depositos[i] << endl;
-    }
 }
 
 //AUX

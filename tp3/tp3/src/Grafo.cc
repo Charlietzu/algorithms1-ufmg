@@ -35,7 +35,7 @@ void Grafo::ProcessaEntrada(string tipoTarefa, string nomeEntrada)
     }
     else if (tipoTarefa == "tarefa2")
     {
-        /*  VerificaNumeroDepositos("tarefa2"); */
+        VerificaNumeroDepositosTarefa2();
     }
 }
 
@@ -65,7 +65,7 @@ void Grafo::VerificaNumeroDepositosTarefa2()
 
     for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
     {
-        if (!explorados[i])
+        if (!explorados[i] && this->ListaCaminhosVilas[i].size() > 0)
         {
             explorados[i] = true;
             for (unsigned int j = 0; j < this->ListaCaminhosVilas[i].size(); j++)
@@ -86,7 +86,6 @@ void Grafo::VerificaNumeroDepositosTarefa1()
 {
     vector<int> depositos;
     vector<bool> explorados;
-    int numeroDepositos;
 
     for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
     {

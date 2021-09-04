@@ -35,13 +35,14 @@ void Grafo::ProcessaEntrada(string tipoTarefa, string nomeEntrada)
     }
     else if (tipoTarefa == "tarefa2")
     {
-       /*  VerificaNumeroDepositos("tarefa2"); */
+        /*  VerificaNumeroDepositos("tarefa2"); */
     }
 }
 
 void Grafo::AdicionaCaminho(int origemId, int destinoId)
 {
     this->ListaCaminhosVilas[origemId].push_back(destinoId);
+    this->ListaCaminhosVilas[destinoId].push_back(origemId);
 }
 
 void Grafo::CriaVilas(int qtdVilas)
@@ -52,7 +53,7 @@ void Grafo::CriaVilas(int qtdVilas)
     }
 }
 
-void Grafo::VerificaNumeroDepositosTarefa1()
+void Grafo::VerificaNumeroDepositosTarefa2()
 {
     vector<bool> explorados;
     int numeroDepositos = 0;
@@ -64,22 +65,68 @@ void Grafo::VerificaNumeroDepositosTarefa1()
 
     for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
     {
-        if (!explorados[i] && this->ListaCaminhosVilas[i].size() > 0)
+        if (!explorados[i])
         {
             explorados[i] = true;
             for (unsigned int j = 0; j < this->ListaCaminhosVilas[i].size(); j++)
             {
                 if (!explorados[this->ListaCaminhosVilas[i][j]])
                 {
-                    explorados[this->ListaCaminhosVilas[i][j]] = true;
                     numeroDepositos++;
+                    explorados[this->ListaCaminhosVilas[i][j]] = true;
                     break;
                 }
             }
         }
     }
-
     cout << numeroDepositos << endl;
+}
+
+void Grafo::VerificaNumeroDepositosTarefa1()
+{
+    vector<int> depositos;
+    vector<bool> explorados;
+    int numeroDepositos;
+
+    for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
+    {
+        explorados.push_back(false);
+    }
+
+    for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
+    {
+        DFS(i, depositos, explorados);
+    }
+
+    cout << depositos.size() << endl;
+}
+
+void Grafo::DFS(int i, vector<int> &depositos, vector<bool> &explorados)
+{
+    explorados[i] = true;
+    for (unsigned int j = 0; j < this->ListaCaminhosVilas[i].size(); j++)
+    {
+        if (!explorados[this->ListaCaminhosVilas[i][j]])
+        {
+            DFS(this->ListaCaminhosVilas[i][j], depositos, explorados);
+            if (!VerificaExistenciaArray(depositos, this->ListaCaminhosVilas[i][j]) && !VerificaExistenciaArray(depositos, i))
+            {
+                depositos.push_back(i);
+            }
+        }
+    }
+}
+
+bool Grafo::VerificaExistenciaArray(vector<int> depositos, int i)
+{
+    for (unsigned int j = 0; j < depositos.size(); j++)
+    {
+        if (depositos[j] == i)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 //AUX

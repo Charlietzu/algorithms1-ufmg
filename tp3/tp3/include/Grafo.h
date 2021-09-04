@@ -17,7 +17,10 @@ public:
     void ProcessaEntrada(string tipoTarefa, string nomeEntrada);
     void AdicionaCaminho(int origemId, int destinoId);
     void CriaVilas(int qtdVilas);
+    void VerificaNumeroDepositosTarefa2();
     void VerificaNumeroDepositosTarefa1();
+    bool VerificaExistenciaArray(vector<int> depositos, int i);
+    void DFS(int i, vector<int> &depositos, vector<bool> &explorados);
 
     //AUX
     void ImprimeVila();

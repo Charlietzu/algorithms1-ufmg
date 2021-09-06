@@ -55,31 +55,43 @@ void Grafo::CriaVilas(int qtdVilas)
 
 void Grafo::VerificaNumeroDepositosTarefa2()
 {
-    vector<bool> explorados;
+    vector<int> explorados;
     int numeroDepositos = 0;
+
+    //-1 = Não visitado
+    //0 = Visitado
+    //1 = Solução
 
     for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
     {
-        explorados.push_back(false);
+        explorados.push_back(-1);
     }
 
     for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
     {
-        if (!explorados[i] && this->ListaCaminhosVilas[i].size() > 0)
+        if (explorados[i] != 1)
         {
-            explorados[i] = true;
+            explorados[i] = 0;
             for (unsigned int j = 0; j < this->ListaCaminhosVilas[i].size(); j++)
             {
-                if (!explorados[this->ListaCaminhosVilas[i][j]])
+                if (explorados[this->ListaCaminhosVilas[i][j]] < 1 && explorados[i] < 1)
                 {
                     numeroDepositos++;
-                    explorados[this->ListaCaminhosVilas[i][j]] = true;
+                    explorados[i] = 1;
                     break;
                 }
             }
         }
     }
+
     cout << numeroDepositos << endl;
+    for (unsigned int i = 0; i < explorados.size(); i++)
+    {
+        if (explorados[i] == 1)
+        {
+            cout << i << endl;
+        }
+    }
 }
 
 void Grafo::VerificaNumeroDepositosTarefa1()

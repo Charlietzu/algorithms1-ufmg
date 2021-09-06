@@ -35,7 +35,7 @@ void Grafo::ProcessaEntrada(string tipoTarefa, string nomeEntrada)
     }
     else if (tipoTarefa == "tarefa2")
     {
-        VerificaNumeroDepositosTarefa2();
+        VerificaDepositosTarefa2();
     }
 }
 
@@ -50,47 +50,6 @@ void Grafo::CriaVilas(int qtdVilas)
     for (int i = 0; i < qtdVilas; i++)
     {
         this->ListaCaminhosVilas.push_back({});
-    }
-}
-
-void Grafo::VerificaNumeroDepositosTarefa2()
-{
-    vector<int> explorados;
-    int numeroDepositos = 0;
-
-    //-1 = Não visitado
-    //0 = Visitado
-    //1 = Solução
-
-    for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
-    {
-        explorados.push_back(-1);
-    }
-
-    for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
-    {
-        if (explorados[i] != 1)
-        {
-            explorados[i] = 0;
-            for (unsigned int j = 0; j < this->ListaCaminhosVilas[i].size(); j++)
-            {
-                if (explorados[this->ListaCaminhosVilas[i][j]] < 1 && explorados[i] < 1)
-                {
-                    numeroDepositos++;
-                    explorados[i] = 1;
-                    break;
-                }
-            }
-        }
-    }
-
-    cout << numeroDepositos << endl;
-    for (unsigned int i = 0; i < explorados.size(); i++)
-    {
-        if (explorados[i] == 1)
-        {
-            cout << i << endl;
-        }
     }
 }
 
@@ -140,15 +99,43 @@ bool Grafo::VerificaExistenciaArray(vector<int> depositos, int i)
     return false;
 }
 
-//AUX
-void Grafo::ImprimeVila()
+void Grafo::VerificaDepositosTarefa2()
 {
-    cout << "Número de vilas: " << this->ListaCaminhosVilas.size() << endl;
+    vector<int> explorados;
+    int numeroDepositos = 0;
+
+    //-1 = Não visitado
+    //0 = Visitado
+    //1 = Solução
+
     for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
     {
-        for (unsigned int j = 0; j < this->ListaCaminhosVilas[i].size(); j++)
+        explorados.push_back(-1);
+    }
+
+    for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
+    {
+        if (explorados[i] != 1)
         {
-            cout << i << " - " << this->ListaCaminhosVilas[i][j] << endl;
+            explorados[i] = 0;
+            for (unsigned int j = 0; j < this->ListaCaminhosVilas[i].size(); j++)
+            {
+                if (explorados[this->ListaCaminhosVilas[i][j]] < 1 && explorados[i] < 1)
+                {
+                    numeroDepositos++;
+                    explorados[i] = 1;
+                    break;
+                }
+            }
+        }
+    }
+
+    cout << numeroDepositos << endl;
+    for (unsigned int i = 0; i < explorados.size(); i++)
+    {
+        if (explorados[i] == 1)
+        {
+            cout << i << endl;
         }
     }
 }

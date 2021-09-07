@@ -101,42 +101,34 @@ bool Grafo::VerificaExistenciaArray(vector<int> depositos, int i)
 
 void Grafo::VerificaDepositosTarefa2()
 {
-    vector<int> explorados;
-    int numeroDepositos = 0;
-
-    //-1 = Não visitado
-    //0 = Visitado
-    //1 = Solução
+    vector<bool> explorados;
+    vector<int> depositos;
 
     for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
     {
-        explorados.push_back(-1);
+        explorados.push_back(false);
     }
 
     for (unsigned int i = 0; i < this->ListaCaminhosVilas.size(); i++)
     {
-        if (explorados[i] != 1)
+        if (!explorados[i])
         {
-            explorados[i] = 0;
+            explorados[i] = true;
             for (unsigned int j = 0; j < this->ListaCaminhosVilas[i].size(); j++)
             {
-                if (explorados[this->ListaCaminhosVilas[i][j]] < 1 && explorados[i] < 1)
+                if (!explorados[this->ListaCaminhosVilas[i][j]])
                 {
-                    numeroDepositos++;
-                    explorados[i] = 1;
-                    break;
+                    explorados[this->ListaCaminhosVilas[i][j]] = true;
+                    depositos.push_back(this->ListaCaminhosVilas[i][j]);
                 }
             }
         }
     }
 
-    cout << numeroDepositos << endl;
-    for (unsigned int i = 0; i < explorados.size(); i++)
+    cout << depositos.size() << endl;
+    for (unsigned int i = 0; i < depositos.size(); i++)
     {
-        if (explorados[i] == 1)
-        {
-            cout << i << endl;
-        }
+        cout << depositos[i] << endl;
     }
 }
 
